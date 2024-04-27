@@ -1,9 +1,10 @@
 import express, { Request, Response } from "express";
 import fetch from "node-fetch";
-import { title } from "process";
+import cors from "cors";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Hello, world!");
@@ -35,7 +36,7 @@ app.get("/api/photos", async (req: Request, res: Response) => {
       tags: item.tags,
     }));
     // console.log("simplifiedData", simplifiedData);
-    console.log("data", data);
+    // console.log("data", data);
 
     res.json(simplifiedData);
   } catch (error: any) {

@@ -1,3 +1,4 @@
 node_modules
 .env
 /backend/@types
+.DS_Store
