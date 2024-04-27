@@ -47,10 +47,10 @@ export default function Home() {
           </div>
           <div className="p-4">
             <h3 className="text-lg font-semibold">{pic.title}</h3>
-            <p className="text-sm text-gray-600 overflow-hidden line-clamp-3">
-              {pic.description}
-            </p>
-            <p className="text-xs text-gray-500">Tags: {pic.tags}</p>
+              <div className="text-sm text-gray-600 overflow-hidden line-clamp-4">
+                <strong>Author: </strong>
+                {pic.author.match(/"([^"]*)"/)?.[1] || "No author found"}
+              </div>
             <a
               href={pic.link}
               target="_blank"
