@@ -34,6 +34,7 @@ app.get("/api/photos", async (req: Request, res: Response) => {
       link: item.link,
       description: item.description,
       tags: item.tags,
+      published: item.published,
     }));
     // console.log("simplifiedData", simplifiedData);
     // console.log("data", data);

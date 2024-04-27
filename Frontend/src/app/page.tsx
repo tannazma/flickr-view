@@ -10,9 +10,11 @@ type Pictures = {
   link: string;
   description: string;
   tags: string;
+  published: string;
 };
 export default function Home() {
   const [pictures, setPictures] = useState<Pictures[]>([]);
+
   useEffect(() => {
     const getPictures = async () => {
       try {
@@ -29,9 +31,24 @@ export default function Home() {
     };
     getPictures();
   }, []);
+
   return (
-    <div className="flex flex-wrap justify-around p-5 gap-5">
-      {pictures.map((pic, index) => (
+    <div className="flex flex-wrap justify-around p-7 gap-3 origin-top-left">
+      {pictures.map((pic, index) => {
+        const date = new Date(pic.published);
+        const formattedDate = `${date.toLocaleDateString("en-US", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })} at ${date.toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        })}`;
+
+        return (
         <div
           key={index}
           className="border border-gray-300 rounded-lg overflow-hidden shadow-sm w-72"
@@ -42,14 +59,18 @@ export default function Home() {
               alt={pic.title}
               layout="fill"
               objectFit="cover"
-              className="rounded-t-lg"
+                className="rounded-t-lg overflow-hidden"
             />
           </div>
-          <div className="p-4">
-            <h3 className="text-lg font-semibold">{pic.title}</h3>
+            <div className="p-2">
+              <h3 className="text-lg font-semibold overflow-hidden">{pic.title}</h3>
               <div className="text-sm text-gray-600 overflow-hidden line-clamp-4">
                 <strong>Author: </strong>
                 {pic.author.match(/"([^"]*)"/)?.[1] || "No author found"}
+              </div>
+              <div>
+                <strong className="text-sm text-gray-500">Published: </strong>
+                <span className="text-sm text-gray-500">{formattedDate}</span>
               </div>
             <a
               href={pic.link}
@@ -61,7 +82,8 @@ export default function Home() {
             </a>
           </div>
         </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
