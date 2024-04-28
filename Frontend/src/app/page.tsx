@@ -1,11 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Picture } from "./types";
 import { PhotoCard } from "./components/PhotoCard";
 
 export default function Home() {
+  // Get tags from url using useSearhcParams()
+  const tagsFromUrl = useSearchParams().get("tags");
+  // Define tagsFromUrl as adefault state for query
+  const [query, setQuery] = useState(tagsFromUrl ?? "");
   const [pictures, setPictures] = useState<Picture[]>([]);
+  const router = useRouter();
 
   const getPictures = async () => {
     try {
@@ -22,6 +28,12 @@ export default function Home() {
     }
   };
 
+  const handleSearchTags = async () => {
+    // Push router/url to the tag query + get the pictures
+    router.push(`/?tags=${query}`);
+    getPictures();
+  };
+
   useEffect(() => {
     getPictures();
   }, []);
@@ -34,6 +46,8 @@ export default function Home() {
           className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-500 text-gray-900 bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           placeholder="Search by tags"
           onChange={(event) => setQuery(event.target.value)}
+          // Bind input value to the query 
+          value={query}
         />
         <button
           onClick={handleSearchTags}
@@ -45,9 +59,8 @@ export default function Home() {
       <div className="flex flex-wrap justify-around p-7 gap-3 origin-top-left">
         {pictures.map((pic, index) => (
           <PhotoCard key={index} pic={pic} showOnlyTags={false} />
-            ))}
+        ))}
       </div>
-      {filteredPictures || <PhotoCards photos={pictures} />}
     </div>
   );
 }
