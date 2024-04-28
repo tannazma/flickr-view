@@ -41,20 +41,28 @@ export default function Home() {
   return (
     <div>
       <div className="relative flex align-middle text-center justify-center">
-        <input
-          type="text"
-          className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-500 text-gray-900 bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-          placeholder="Search by tags"
-          onChange={(event) => setQuery(event.target.value)}
-          // Bind input value to the query 
-          value={query}
-        />
-        <button
-          onClick={handleSearchTags}
-          className="ml-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+        {/* use form with button type submit to make the search work with enter */}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSearchTags();
+          }}
         >
-          Search
-        </button>
+          <input
+            type="text"
+            className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-500 text-gray-900 bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+            placeholder="Search by tags"
+            onChange={(event) => setQuery(event.target.value)}
+            // Bind input value to the query
+            value={query}
+          />
+          <button
+            type="submit"
+            className="ml-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+          >
+            Search
+          </button>
+        </form>
       </div>
       <div className="flex flex-wrap justify-around p-7 gap-3 origin-top-left">
         {pictures.map((pic, index) => (
