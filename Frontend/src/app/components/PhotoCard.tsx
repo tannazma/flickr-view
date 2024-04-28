@@ -36,7 +36,9 @@ export function PhotoCard({ pic, showOnlyTags = false }: Props) {
         />
       </div>
       <div className="p-2">
-        {showOnlyTags ? <></> : (
+        {showOnlyTags ? (
+          <></>
+        ) : (
           <>
             <h3 className="text-lg font-semibold overflow-hidden">
               {pic.title}
@@ -63,7 +65,9 @@ export function PhotoCard({ pic, showOnlyTags = false }: Props) {
                     key={tag}
                     className="p-1 m-1 inline-block bg-gray-200 rounded overflow-hidden"
                   >
-                    {tag.trim()}
+                    <a href={`http://localhost:3001/?tags=${tag}`}>
+                      {tag.trim()}
+                    </a>
                   </span>
                 ))}
             </div>
