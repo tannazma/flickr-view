@@ -41,7 +41,7 @@ export function PhotoCard({ pic, showOnlyTags = false }: Props) {
         ) : (
           <>
             <h3 className="text-lg font-semibold overflow-hidden">
-              {pic.title}
+              {pic.title.length<70 ? pic.title.slice(0,70):  pic.title.slice(0,70 )+ "..."}
             </h3>
             <div className="text-sm text-gray-600 overflow-hidden line-clamp-4">
               <strong>Author: </strong>
