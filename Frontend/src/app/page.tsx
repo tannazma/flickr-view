@@ -7,22 +7,12 @@ import { PhotoCard } from "./components/PhotoCard";
 
 export default function Home() {
   // Define tagsFromUrl as adefault state for query
-  const [query, setQuery] = useState("");
+  const searchParams = useSearchParams();
+  // Get tags from url using useSearhcParams()
+  const tagsFromUrl = searchParams.get("tags");
+  const [query, setQuery] = useState(tagsFromUrl ?? "");
   const [pictures, setPictures] = useState<Picture[]>([]);
   const router = useRouter();
-
-  // Use Suspense to handle asynchronous loading with useSearchParams
-  const TagsSearch = () => {
-    const searchParams = useSearchParams();
-    // Get tags from url using useSearhcParams()
-    const tagsFromUrl = searchParams.get("tags");
-
-    useEffect(() => {
-      if (tagsFromUrl) setQuery(tagsFromUrl);
-    }, [tagsFromUrl]);
-
-    return null; // This component does not render anything
-  };
 
   const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
   const getPictures = useCallback(async () => {
@@ -53,12 +43,12 @@ export default function Home() {
   const handleSearchTags = async () => {
     // Push router/url to the tag query + get the pictures
     router.push(`/?tags=${query}`);
-    getPictures();
+    await getPictures();
   };
 
   return (
+    // Use Suspense to handle asynchronous loading with useSearchParams
     <Suspense fallback={<div>Loading...</div>}>
-      <TagsSearch />
       <div>
         <div className="relative flex align-middle text-center justify-center flex-wrap p-3 m-3">
           {/* use form with button type submit to make the search work with enter */}
