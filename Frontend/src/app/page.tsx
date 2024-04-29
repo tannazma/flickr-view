@@ -25,9 +25,10 @@ export default function Home() {
   };
 
   const getPictures = useCallback(async () => {
+    const baseUrl = process.env.REACT_APP_BACKEND_URL;
     try {
       const response = await fetch(
-        `http://localhost:3000/api/photos?tags=${encodeURIComponent(query)}`
+        `${baseUrl}/photos/?tags=${encodeURIComponent(query)}`
       );
       const data = await response.json();
       setPictures(data);
