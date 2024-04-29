@@ -68,7 +68,7 @@ export function PhotoCard({ pic, showOnlyTags = false }: Props) {
                     className="p-1 m-1 inline-block bg-gray-200 rounded overflow-hidden"
                   >
                     <a
-                      href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/?tags=${tag}`}
+                      href={`/?tags=${tag}`}
                     >
                       {tag.trim()}
                     </a>
