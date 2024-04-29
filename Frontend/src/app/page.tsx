@@ -25,9 +25,12 @@ export default function Home() {
   };
 
   const getPictures = useCallback(async () => {
-    const baseUrl =
-      process.env.REACT_APP_BACKEND_URL || "http://localhost:3000/api";
-
+    const baseUrl = process.env.NEXT_PUBLIC_SERVERURL;
+    console.log("Base URL:", baseUrl);
+    if (!process.env.NEXT_PUBLIC_SERVERURL) {
+      console.error("NEXT_PUBLIC_SERVERURL is not set.");
+      throw new Error("Application configuration error: NEXT_PUBLIC_SERVERURL is required.");
+    }
     try {
       const response = await fetch(
         `${baseUrl}/photos/?tags=${encodeURIComponent(query)}`
