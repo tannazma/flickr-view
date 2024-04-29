@@ -24,12 +24,14 @@ export default function Home() {
     return null; // This component does not render anything
   };
 
+  const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+  console.log("Base URL:", baseUrl);
   const getPictures = useCallback(async () => {
-    const baseUrl = process.env.NEXT_PUBLIC_SERVERURL;
-    console.log("Base URL:", baseUrl);
-    if (!process.env.NEXT_PUBLIC_SERVERURL) {
-      console.error("NEXT_PUBLIC_SERVERURL is not set.");
-      throw new Error("Application configuration error: NEXT_PUBLIC_SERVERURL is required.");
+    if (!process.env.NEXT_PUBLIC_BACKEND_URL) {
+      console.error("NEXT_PUBLIC_BACKEND_URL is not set.");
+      throw new Error(
+        "Application configuration error: NEXT_PUBLIC_BACKEND_URL is required."
+      );
     }
     try {
       const response = await fetch(
@@ -43,7 +45,7 @@ export default function Home() {
     } catch (error) {
       console.log("Error fetching pictures", error);
     }
-  }, [query]);
+  }, [query, baseUrl]);
 
   useEffect(() => {
     getPictures();
