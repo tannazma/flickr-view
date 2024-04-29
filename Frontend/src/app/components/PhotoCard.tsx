@@ -23,17 +23,16 @@ export function PhotoCard({ pic, showOnlyTags = false }: Props) {
   return (
     <div
       key={pic.title}
-      className="flex flex-col justify-between border border-gray-300 rounded-lg shadow-sm w-72 relative"
+      className="flex flex-col justify-between border border-gray-300 rounded-lg shadow-sm w-64 relative"
     >
       <div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <div className="relative h-40">
-          <Image
+          <img
             src={pic.imageURL}
             alt={pic.title}
-            layout="fill"
-            sizes="(max-width: 768px) 100vw"
-            objectFit="cover"
-            className="rounded-t-lg overflow-hidden"
+            className="rounded-t-lg object-cover w-full h-full"
+            loading="lazy"
           />
         </div>
         <div className="p-2 flex flex-col ">
