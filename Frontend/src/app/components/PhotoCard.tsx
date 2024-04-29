@@ -23,9 +23,9 @@ export function PhotoCard({ pic, showOnlyTags = false }: Props) {
   return (
     <div
       key={pic.title}
-      className="border border-gray-300 rounded-lg overflow-hidden shadow-sm w-72"
+      className="border border-gray-300 rounded-lg shadow-sm w-72"
     >
-      <div className="relative w-full h-48">
+      <div className="relative h-40">
         <Image
           src={pic.imageURL}
           alt={pic.title}
@@ -40,10 +40,12 @@ export function PhotoCard({ pic, showOnlyTags = false }: Props) {
           <></>
         ) : (
           <>
-            <h3 className="text-lg font-semibold overflow-hidden">
-              {pic.title.length<70 ? pic.title.slice(0,70):  pic.title.slice(0,70 )+ "..."}
+            <h3 className="text-sm  text-gray-600 font-semibold overflow-hidden">
+              {pic.title.length < 70
+                ? pic.title.slice(0, 70)
+                : pic.title.slice(0, 70) + "..."}
             </h3>
-            <div className="text-sm text-gray-600 overflow-hidden line-clamp-4">
+            <div className="text-sm text-gray-500 overflow-hidden line-clamp-4">
               <strong>Author: </strong>
               {pic.author.match(/"([^"]*)"/)?.[1] || "No author found"}
             </div>
@@ -65,7 +67,9 @@ export function PhotoCard({ pic, showOnlyTags = false }: Props) {
                     key={tag}
                     className="p-1 m-1 inline-block bg-gray-200 rounded overflow-hidden"
                   >
-                    <a href={`http://localhost:3001/?tags=${tag}`}>
+                    <a
+                      href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/?tags=${tag}`}
+                    >
                       {tag.trim()}
                     </a>
                   </span>
@@ -73,11 +77,13 @@ export function PhotoCard({ pic, showOnlyTags = false }: Props) {
             </div>
           </div>
         )}
+      </div>
+      <div className="flex justify-center pb-2">
         <a
           href={pic.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="block mt-2 text-blue-600 hover:text-blue-800 hover:underline"
+          className="p-2 bg-gray-100 rounded text-blue-600 hover:text-blue-800"
         >
           View on Flickr
         </a>
