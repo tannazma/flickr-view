@@ -23,7 +23,7 @@ export function PhotoCard({ pic, showOnlyTags = false }: Props) {
   return (
     <div
       key={pic.title}
-      className="border border-gray-300 rounded-lg shadow-sm w-72"
+      className="border border-gray-300 rounded-lg shadow-sm w-64 relative"
     >
       <div className="relative h-40">
         <Image
@@ -35,58 +35,56 @@ export function PhotoCard({ pic, showOnlyTags = false }: Props) {
           className="rounded-t-lg overflow-hidden"
         />
       </div>
-      <div className="p-2">
-        {showOnlyTags ? (
-          <></>
-        ) : (
-          <>
-            <h3 className="text-sm  text-gray-600 font-semibold overflow-hidden">
-              {pic.title.length < 70
-                ? pic.title.slice(0, 70)
-                : pic.title.slice(0, 70) + "..."}
-            </h3>
-            <div className="text-sm text-gray-500 overflow-hidden line-clamp-4">
-              <strong>Author: </strong>
-              {pic.author.match(/"([^"]*)"/)?.[1] || "No author found"}
-            </div>
+      <div className="p-2 flex flex-col ">
+        <div>
+          {showOnlyTags ? (
+            <></>
+          ) : (
             <div>
-              <strong className="text-sm text-gray-500">Published: </strong>
-              <span className="text-sm text-gray-500">{formattedDate}</span>
+              <h3 className="text-sm text-gray-800 font-semibold mb-2 truncate">
+                {pic.title.length < 70
+                  ? pic.title.slice(0, 70)
+                  : pic.title.slice(0, 70) + "..."}
+              </h3>
+              <div className="text-sm text-gray-600 mb-2">
+                <strong>Author: </strong>
+                {pic.author.match(/"([^"]*)"/)?.[1] || "No author found"}
+              </div>
+              <div className="text-sm text-gray-600 mb-2">
+                <strong className="text-sm text-gray-500">Published: </strong>
+                <span className="text-sm text-gray-500">{formattedDate}</span>
+              </div>
             </div>
-          </>
-        )}
-        {pic.tags && (
-          <div className="text-sm text-gray-500">
-            <strong>Tags: </strong>
-            <div>
-              {pic.tags
-                .split(" ")
-                .slice(0, 4)
-                .map((tag) => (
-                  <span
-                    key={tag}
-                    className="p-1 m-1 inline-block bg-gray-200 rounded overflow-hidden"
-                  >
-                    <a
-                      href={`/?tags=${tag}`}
+          )}
+          {pic.tags && (
+            <div className="text-sm text-gray-600 mb-4">
+              <strong>Tags: </strong>
+              <div className="flex flex-wrap mt-1">
+                {pic.tags
+                  .split(" ")
+                  .slice(0, 4)
+                  .map((tag) => (
+                    <span
+                      key={tag}
+                      className="mr-1 mb-1 p-1 bg-gray-200 rounded text-xs  hover:bg-violet-400 hover:text-white"
                     >
-                      {tag.trim()}
-                    </a>
-                  </span>
-                ))}
+                      <a href={`/?tags=${tag}`}>{tag.trim()}</a>
+                    </span>
+                  ))}
+              </div>
             </div>
-          </div>
-        )}
-      </div>
-      <div className="flex justify-center pb-2">
-        <a
-          href={pic.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="p-2 bg-gray-100 rounded text-blue-600 hover:text-blue-800"
-        >
-          View on Flickr
-        </a>
+          )}
+        </div>
+        <div className="flex justify-center align-middle mb-3">
+          <a
+            href={pic.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm px-3 py-1 bg-violet-400 rounded text-white font-semibold shadow-md transition duration-300 ease-in-out transform hover:scale-105 hover:bg-violet-600"
+          >
+            View on Flickr
+          </a>
+        </div>
       </div>
     </div>
   );
