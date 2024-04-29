@@ -25,9 +25,8 @@ export default function Home() {
   };
 
   const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-  console.log("Base URL:", baseUrl);
   const getPictures = useCallback(async () => {
-    if (!process.env.NEXT_PUBLIC_BACKEND_URL) {
+    if (!baseUrl) {
       console.error("NEXT_PUBLIC_BACKEND_URL is not set.");
       throw new Error(
         "Application configuration error: NEXT_PUBLIC_BACKEND_URL is required."
@@ -35,7 +34,7 @@ export default function Home() {
     }
     try {
       const response = await fetch(
-        `${baseUrl}/photos/?tags=${encodeURIComponent(query)}`
+        `${baseUrl}/?tags=${encodeURIComponent(query)}`
       );
       const data = await response.json();
       setPictures(data);
@@ -50,6 +49,7 @@ export default function Home() {
   useEffect(() => {
     getPictures();
   }, [getPictures]);
+
   const handleSearchTags = async () => {
     // Push router/url to the tag query + get the pictures
     router.push(`/?tags=${query}`);
