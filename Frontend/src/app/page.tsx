@@ -3,7 +3,7 @@
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Picture } from "./types";
-import { PhotoCard } from "./components/PhotoCard";
+import { PhotoGrid } from "./components/PhotoGrid";
 
 export default function Home() {
   return (
@@ -81,12 +81,8 @@ const HomeComponent = () => {
               </button>
             </div>
           </form>
-        </div>
-        <div className="flex flex-wrap justify-around p-7 gap-5 ">
-          {pictures.map((pic, index) => (
-            <PhotoCard key={index} pic={pic} showOnlyTags={false} />
-          ))}
-        </div>
+      </div>
+      <PhotoGrid pictures={pictures}/>
       </div>
   );
 };
