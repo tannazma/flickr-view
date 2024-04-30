@@ -6,6 +6,15 @@ import { Picture } from "./types";
 import { PhotoCard } from "./components/PhotoCard";
 
 export default function Home() {
+  return (
+    // Use Suspense to handle asynchronous loading with useSearchParams
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeComponent />
+    </Suspense>
+  );
+}
+
+const HomeComponent = () => {
   // Define tagsFromUrl as adefault state for query
   const searchParams = useSearchParams();
   // Get tags from url using useSearhcParams()
@@ -47,8 +56,6 @@ export default function Home() {
   };
 
   return (
-    // Use Suspense to handle asynchronous loading with useSearchParams
-    <Suspense fallback={<div>Loading...</div>}>
       <div>
         <div className="relative flex align-middle text-center justify-center flex-wrap p-3 m-3">
           {/* use form with button type submit to make the search work with enter */}
@@ -81,6 +88,5 @@ export default function Home() {
           ))}
         </div>
       </div>
-    </Suspense>
   );
-}
+};
