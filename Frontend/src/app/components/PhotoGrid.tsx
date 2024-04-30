@@ -1,5 +1,5 @@
 import { Picture } from "../types";
-import { PhotoCard } from "./PhotoCard";
+import { PhotoGridItem } from "./PhotoGridItem";
 
 interface PhotoCardProp {
   pictures: Picture[];
@@ -8,7 +8,7 @@ export const PhotoGrid = ({ pictures }: PhotoCardProp) => {
   return (
     <div className={"flex flex-wrap justify-around p-7 gap-5"}>
       {pictures.map((pic, index) => (
-        <PhotoCard key={index} pic={pic} showOnlyTags={false} />
+        <PhotoGridItem key={index} pic={pic} showOnlyTags={false} />
       ))}
     </div>
   );

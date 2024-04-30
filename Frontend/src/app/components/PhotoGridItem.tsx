@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Picture } from "../types";
 
 type Props = {
@@ -6,7 +5,7 @@ type Props = {
   showOnlyTags: boolean;
 };
 
-export function PhotoCard({ pic, showOnlyTags = false }: Props) {
+export function PhotoGridItem({ pic, showOnlyTags = false }: Props) {
   const date = new Date(pic.published);
   const formattedDate = `${date.toLocaleDateString("en-US", {
     weekday: "long",
@@ -19,11 +18,13 @@ export function PhotoCard({ pic, showOnlyTags = false }: Props) {
     second: "2-digit",
     hour12: true,
   })}`;
-
+  
   return (
     <div
       key={pic.title}
-      className="flex flex-col justify-between border border-gray-300 rounded-lg shadow-sm w-64 relative"
+      className={`flex flex-col justify-between border border-gray-300 rounded-lg shadow-sm ${
+        showOnlyTags ? "w-full p-2" : "w-64"
+      } relative`}
     >
       <div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
