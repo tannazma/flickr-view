@@ -67,7 +67,7 @@ export function PhotoGridItem({ pic, showOnlyTags = false }: Props) {
                     .map((tag) => (
                       <span
                         key={tag}
-                        className="mr-1 mb-1 p-1 bg-gray-200 rounded text-xs  hover:bg-violet-400 hover:text-white"
+                        className="mr-1 max-w-[100px] overflow-hidden text-ellipsis mb-1 p-1 bg-gray-200 rounded text-xs  hover:bg-violet-400 hover:text-white"
                       >
                         <a href={`/?tags=${tag}`}>{tag.trim()}</a>
                       </span>
